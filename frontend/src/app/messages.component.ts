@@ -4,25 +4,30 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'messages',
-  template: ` <div *ngFor="let message of webService.messages">
-    <mat-card class="card" style="margin: 8px;">
-      <mat-card-title
-        [routerLink]="['/messages', message.owner]"
-        style="cursor: pointer"
-      >
-        {{ message.owner }}
-      </mat-card-title>
-      <mat-card-content>
-        {{ message.text }}
-      </mat-card-content>
-    </mat-card>
-  </div>`,
+  template: `
+  <div>
+  <mat-card class="card">
+  <mat-card-title [routerLink]="['/messages']" style="cursor: pointer;">
+
+  </mat-card-title>
+  <mat-card-content>
+
+  </mat-card-content>
+  </mat-card>
+  </div>
+  `,
 })
 export class MessagesComponent {
   constructor(public webService: WebService, private route: ActivatedRoute) {} //PRIVATE -> PUBLIC
 
-  ngOnInit(){
-    console.log(this.route.snapshot.params)
+  ngOnInit() {
+    console.log(typeof this.webService.messages)
+    let name = this.route.snapshot.params.name;
+    this.webService.getMessages(name);
+
+    // this.webService.messages.subscribe(messages => {
+    //   this.messages = messages;
+    // })
   }
   // messages = [];
 
